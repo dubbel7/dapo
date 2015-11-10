@@ -6,8 +6,8 @@ public interface Client {
 
     public void save(Entity e);
 
-    public List<Entity> getAll();
+    public List<Entity> getAll(String type);
 
-    public void registerListener(Listener<Entity> l);
+    public void registerListener(String type, Listener<Entity> l);
 
 }
