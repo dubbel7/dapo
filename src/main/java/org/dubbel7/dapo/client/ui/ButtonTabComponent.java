@@ -1,4 +1,4 @@
-package com.santander.sbp.limits.ui;
+package org.dubbel7.dapo.client.ui;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
