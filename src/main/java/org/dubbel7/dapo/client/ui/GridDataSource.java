@@ -1,13 +1,16 @@
 package org.dubbel7.dapo.client.ui;
 
+import org.dubbel7.dapo.model.Entity;
+import org.dubbel7.dapo.model.EntityDescription;
+
 import java.util.List;
 
 public interface GridDataSource {
 
-    public EntityDescription getDescription(String entityName);
+    EntityDescription getDescription(String entityName);
 
-    public List<Entity> getAll(String entityName);
+    List<Entity> getAll(String entityName);
 
-    public void subscribe(String entityName, GridDataSourceListener listener);
+    void subscribe(String entityName, GridDataSourceListener listener);
 
 }

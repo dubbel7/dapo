@@ -1,5 +1,7 @@
 package org.dubbel7.dapo.client.ui;
 
+import org.dubbel7.dapo.model.Entity;
+import org.dubbel7.dapo.model.EntityDescription;
 import sun.swing.DefaultLookup;
 
 import javax.swing.*;
@@ -20,10 +22,10 @@ public class GridPanel  extends JPanel implements ActionListener {
 
     private final AtomicLong updateId = new AtomicLong(0);
     private final ScheduledExecutorService ex = Executors.newSingleThreadScheduledExecutor();
-    private final DiffTableModel model;
+    private final GridTableModel model;
     private final JTable table;
 
-    private final Map<String, JTextField> fieldsMap = new HashMap<String, JTextField>();
+    private final Map<String, JTextField> fieldsMap = new HashMap<>();
 
     public GridPanel(String name, GridDataSource gridDataSource) {
         super(new BorderLayout());
@@ -53,7 +55,7 @@ public class GridPanel  extends JPanel implements ActionListener {
 
         JPanel gridPanel = new JPanel(new BorderLayout());
 
-        model = new DiffTableModel(ed);
+        model = new GridTableModel(ed);
         List<Entity> all = gridDataSource.getAll(name);
         for(Entity e : all) {
             model.addRow(e.getFields());
@@ -97,7 +99,7 @@ public class GridPanel  extends JPanel implements ActionListener {
                 if(selectedRow >= 0) {
                     table.setRowSelectionInterval(selectedRow, selectedRow);
                 }
-                ex.schedule(new ResetTask(e.getPrimaryKey(), uid), 1, TimeUnit.SECONDS);
+                ex.schedule(new ResetTask(e.getKey(), uid), 1, TimeUnit.SECONDS);
             }
         });
     }

@@ -1,7 +1,11 @@
 package org.dubbel7.dapo.client.ui;
 
+import org.dubbel7.dapo.model.Entity;
+import org.dubbel7.dapo.model.EntityDescription;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class Admin extends JFrame {
 
@@ -20,7 +24,22 @@ public class Admin extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        PanelManager panelManager = new PanelManager(new LimitsGridDataSource());
+        PanelManager panelManager = new PanelManager(new GridDataSource() {
+            @Override
+            public EntityDescription getDescription(String entityName) {
+                return new EntityDescription(entityName, "a", new String[]{"a", "b"});
+            }
+
+            @Override
+            public List<Entity> getAll(String entityName) {
+                return null;
+            }
+
+            @Override
+            public void subscribe(String entityName, GridDataSourceListener listener) {
+
+            }
+        });
 
         MenuBar mb = new MenuBar(panelManager);
         setJMenuBar(mb);
@@ -39,7 +58,7 @@ public class Admin extends JFrame {
 
             @Override
             public void run() {
-                LimitsAdmin ex = new LimitsAdmin();
+                Admin ex = new Admin();
                 ex.setVisible(true);
             }
         });

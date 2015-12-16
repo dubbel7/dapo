@@ -1,15 +1,18 @@
-package org.dubbel7.dapo.client;
+package org.dubbel7.dapo.model;
 
-public class Entity {
+import java.io.Serializable;
+import java.util.Map;
+
+public class Entity implements Serializable {
 
     private final String type;
     private final String key;
-    private final String value;
+    private final Map<String, String> fields;
 
-    public Entity(String type, String key, String value) {
+    public Entity(String type, String key, Map<String, String> fields) {
         this.type = type;
         this.key = key;
-        this.value = value;
+        this.fields = fields;
     }
 
     public String getType() {
@@ -20,8 +23,8 @@ public class Entity {
         return key;
     }
 
-    public String getValue() {
-        return value;
+    public Map<String, String> getFields() {
+        return fields;
     }
 
     @Override
@@ -29,7 +32,7 @@ public class Entity {
         return "Entity{" +
                 "type='" + type + '\'' +
                 ", key='" + key + '\'' +
-                ", value='" + value + '\'' +
+                ", fields=" + fields +
                 '}';
     }
 }

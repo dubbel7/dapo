@@ -4,6 +4,7 @@ import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
+import org.dubbel7.dapo.model.Entity;
 
 import java.util.*;
 
@@ -18,15 +19,15 @@ public class HzClient implements Client {
     }
 
     public void save(Entity e) {
-        client.getMap(e.getType()).put(e.getKey(), e.getValue());
+        client.getMap(e.getType()).put(e.getKey(), e);
     }
 
     public List<Entity> getAll(String type) {
         List<Entity> res = new ArrayList<Entity>();
-        IMap<String, String> map = client.getMap(type);
-        Set<Map.Entry<String, String>> entries = map.entrySet();
-        for(Map.Entry<String, String> e : entries) {
-            res.add(new Entity(type, e.getKey(), e.getValue()));
+        IMap<String, Entity> map = client.getMap(type);
+        Set<Map.Entry<String, Entity>> entries = map.entrySet();
+        for(Map.Entry<String, Entity> e : entries) {
+            res.add(e.getValue());
         }
         return res;
     }
@@ -48,7 +49,9 @@ public class HzClient implements Client {
                 String key = split[2];
                 String val = split[3];
                 System.out.println("add for type " + type);
-                hzClient.save(new Entity(type, key, val));
+                Map<String, String> map = new HashMap<>();
+                map.put("value", val);
+                hzClient.save(new Entity(type, key, map));
 
             } else if(next.startsWith("all")) {
                 String[] split = next.split(" ");

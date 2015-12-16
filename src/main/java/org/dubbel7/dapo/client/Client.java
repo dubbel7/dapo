@@ -1,5 +1,7 @@
 package org.dubbel7.dapo.client;
 
+import org.dubbel7.dapo.model.Entity;
+
 import java.util.List;
 
 public interface Client {

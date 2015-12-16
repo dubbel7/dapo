@@ -1,4 +1,4 @@
-package org.dubbel7.dapo.client.ui;
+package org.dubbel7.dapo.model;
 
 public class EntityDescription {
 
