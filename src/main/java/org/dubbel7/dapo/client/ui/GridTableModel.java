@@ -14,21 +14,22 @@ public class GridTableModel extends AbstractTableModel {
     private final EntityDescription ed;
     private final List<Map<String, CellValue>> data = new ArrayList<Map<String, CellValue>>();
 
-    public DiffTableModel(EntityDescription ed) {
+    public GridTableModel(EntityDescription ed) {
         this.ed = ed;
     }
 
     public void addRow(Map<String, String> row) {
         Map<String, CellValue> r = new HashMap<String, CellValue>();
         for(Map.Entry<String, String> e : row.entrySet()) {
-            r.put(e.getKey(), new CellValue(e.getValue()));
+            r.put("Key", new CellValue(e.getKey()));
+            r.put("Value", new CellValue(e.getValue()));
         }
         data.add(r);
     }
 
     public boolean updateRow(Entity entity, long updateId) {
         for(Map<String, CellValue> d : data) {
-            if(entity.getPrimaryKey().equals(d.get(entity.getPrimaryKeyName()).currentValue)) {
+            if(entity.getKey().equals(d.get(entity.getKey()).currentValue)) {
                 for(Map.Entry<String, String> e : entity.getFields().entrySet()) {
                     String key = e.getKey();
                     String value = e.getValue();

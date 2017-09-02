@@ -62,7 +62,7 @@ public class GridPanel  extends JPanel implements ActionListener {
         }
 
         table = new JTable(model);
-        table.setDefaultRenderer(CellValue.class, new MyRenderer());
+        //table.setDefaultRenderer(CellValue.class, new MyRenderer());
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JScrollPane scrollPane = new JScrollPane(table);
